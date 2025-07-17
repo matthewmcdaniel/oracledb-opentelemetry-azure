@@ -1,0 +1,11 @@
+{
+    "workshoptitle": "Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
+    "help": "",
+	"tutorials": [
+        {
+            "title": "Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
+	    "description":"Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
+            "filename":"https://matthewmcdaniel.github.io/oraoperator-on-azure/autonomous_database/atanywhere/azure/atazure.md"
+        }
+    ]
+}
