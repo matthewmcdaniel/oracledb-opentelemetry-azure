@@ -116,7 +116,7 @@ In this Workshop, we’ll explore the following:
     kubectl apply -f manifests/
     ```
 
-## Task 4: Download Oracle DB Prometheus Exporter
+## Task 3: Download Oracle DB Prometheus Exporter
 
 1. Go to https://github.com/oracle/oracle-db-appdev-monitoring
 
@@ -186,7 +186,7 @@ In this Workshop, we’ll explore the following:
     kubectl apply -f metrics-service-monitor.yaml
     ```
 
-## Task 3: Import Grafana Dashboards
+## Task 4: Import Grafana Dashboards
 
 1. (Optional) Create `Load Balancer` service for Grafana.
 

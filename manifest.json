@@ -4,8 +4,8 @@
 	"tutorials": [
         {
             "title": "Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
-	    "description":"Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
-            "filename":"https://matthewmcdaniel.github.io/oraoperator-on-azure/steps.md"
+            "description":"Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
+            "filename":"https://matthewmcdaniel.github.io/oracledb-opentelemetry-azure/steps.md"
         }
     ]
 }
