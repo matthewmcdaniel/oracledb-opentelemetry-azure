@@ -13,7 +13,7 @@ Azure Resource Manager - https://learn.microsoft.com/en-us/azure/azure-resource-
 Oracle Database@Azure - https://www.oracle.com/cloud/azure/oracle-database-at-azure/
 Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/en-us/azure/templates/oracle.database/autonomousdatabases?pivots=deployment-language-bicep
 
-## Task 1: 
+## Task 1: Write Bicep code
 1. Open a terminal with Azure CLI installed, In this example I will use Azure's Cloud Shell
     ![Azure Cloud Shell](./images/cloudshell.png)
 
