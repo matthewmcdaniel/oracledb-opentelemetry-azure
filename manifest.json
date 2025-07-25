@@ -1,11 +1,16 @@
 {
-    "workshoptitle": "Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
+    "workshoptitle": "Oracle ADB@Azure",
     "help": "",
 	"tutorials": [
         {
             "title": "Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
             "description":"Monitor Oracle Database@Azure using Cloud-Native OpenTelemetry tools.",
-            "filename":"https://matthewmcdaniel.github.io/oracledb-opentelemetry-azure/steps.md"
+            "filename":"https://matthewmcdaniel.github.io/oracledb-opentelemetry-azure/labs/oracledb-opentelemetry-azure/steps.md"
+        },
+        {
+            "title": "Use Azure Bicep and Azure Resource Manager to create Oracle Autonomous Database@Azure.",
+            "description":"Use Azure Bicep and Azure Resource Manager to create Oracle Autonomous Database@Azure.",
+            "filename":"https://matthewmcdaniel.github.io/oracledb-opentelemetry-azure/labs/bicep/bicep.md"
         }
     ]
 }
