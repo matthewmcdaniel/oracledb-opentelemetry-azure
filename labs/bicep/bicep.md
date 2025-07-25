@@ -1,11 +1,10 @@
-# Creating an Autonomous Database using Bicep
+# Creating an Autonomous Database using Azure Infrastructure-as-Code tools
 
 ## Introduction
 
-There are many ways to provision an Autonomous Database@Azure: you can use the console for a seamless, new user friendly experience. For more experienced or those who are more DevOps inclined, you can use IaC (Infrastructure-as-code) tools to provision infrastructure through programming tools, such as the API, CLI, or Terraform. Azure offers a user-friendly language called Bicep, which acts as an alternative to 
-ARM templates or Terraform, which can often be challenging to read.
+There are many ways to provision an Autonomous Database@Azure: you can use the console for a seamless, new user friendly experience. For more experienced or those who are more DevOps inclined, you can use IaC (Infrastructure-as-code) tools to provision infrastructure through programming tools, such as the API, CLI, or Terraform. Additionally, Azure offers a user-friendly language called Bicep, which acts as an alternative to ARM templates or Terraform, which can often be challenging to read.
 
-In this workshop, you will use Bicep and Azure Resource Manager to provision an Oracle Autonomous Database@Azure. 
+In this workshop, you will earn how to provision Oracle Autonomous Database using a variety of IaC tools. 
 ## Documentation 
 
 What is Bicep? - https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep
@@ -159,3 +158,162 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 4. Validate your deployment has been created.
 
     ![Completed Deployment](./images/completeddeployment.png)
+
+## Task 3: Create Autonomous Database@Azure using ARM templates
+
+1. Access terminal with Azure CLI installed and configured, in this example I will use Azure Cloud Shell.
+
+2. Create resource group
+
+    ```
+    az group create --location eastus --name <example_resource_group>
+    ```
+
+3. Create ARM deploy file
+
+    ```
+    code azuredeploy.json
+    ```
+
+4. Paste the following
+
+    ```
+            {
+        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "resources": [
+            {
+                "type": "Oracle.Database/autonomousDatabases",
+                "apiVersion": "2025-03-01",
+                "name": "testbicepdeployment",
+                "location": "eastus",
+                "properties": {
+                    "adminPassword": "dbatazurepassword098",
+                    "backupRetentionPeriodInDays": 60,
+                    "characterSet": "AL32UTF8",
+                    "computeCount": 2,
+                    "computeModel": "ECPU",
+                    "customerContacts": [
+                    {
+                        "email": "<insert_email>"
+                    }
+                    ],
+                    "dataStorageSizeInTbs": 1,
+                    "dbVersion": "23ai",
+                    "dbWorkload": "DW",
+                    "displayName": "DisplayName",
+                    "isAutoScalingEnabled": false,
+                    "isAutoScalingForStorageEnabled": false,
+                    "isLocalDataGuardEnabled": false,
+                    "isMtlsConnectionRequired": true,
+                    "isPreviewVersionWithServiceTermsAccepted": false,
+                    "licenseModel": "LicenseIncluded",
+                    "localAdgAutoFailoverMaxDataLossLimit": 0,
+                    "longTermBackupSchedule": {
+                        "isDisabled": false,
+                        "repeatCadence": "Monthly",
+                        "retentionPeriodInDays": 90
+                    },
+                    "ncharacterSet": "AL16UTF16",
+                    "openMode": "ReadWrite",
+                    "permissionLevel": "Unrestricted",
+                    "scheduledOperations": {
+                        "dayOfWeek": {
+                            "name": "Sunday"
+                        }
+                    },
+                    "dataBaseType": "Regular"
+                    // For remaining properties, see AutonomousDatabaseBaseProperties objects
+                }
+            }
+        ]
+        }
+    ```
+
+    **NOTE**: the configuration above is identical to the Bipec example from earlier. 
+
+5. Create ARM template
+
+    ```
+    az deployment group create --name adb-arm-template --resource-group code-innovate-iac --template-file ./azuredeploy.json
+    ```
+
+6. Validate that the deployment has been created. Go to Resource Groups > Settings > Deployments
+
+    ![Successful ARM template](./images/armtemplate.png)
+
+## Task 3: Using Terraform to provision Autonomous Database@Azure
+
+1. Open a terminal with access to Terraform. In this example I am using Azure Cloud Shell.
+
+2. Create a file called `main.tf`
+
+3. Create Terraform provider within `main.tf`
+
+    ```
+    terraform {
+        required_providers {
+            azapi = {
+            source = "Azure/azapi"
+            }
+            azurerm = {
+            source = "hashicorp/azurerm"
+            }
+        }
+    }
+    ```
+
+4. Create `azurerm` provider
+
+    ```
+    provider "azurerm" {
+        resource_provider_registrations = "none"
+        subscription_id = "<subscription_ID"
+        features {}
+    }
+    ```
+
+5. Create resource group data source
+
+    ```
+    data "azurerm_resource_group" "resource_group" {
+        name = "<resource_group>"
+    }
+    ```
+6. Create Autonomous Database resource
+
+    ```
+    resource "azapi_resource" "autonomous_db" {
+        type                      = "Oracle.Database/autonomousDatabases@2023-09-01"
+        parent_id                 = data.azurerm_resource_group.resource_group.id
+        name                      = "testbicepdeployment"
+        schema_validation_enabled = false
+        
+        body = {
+            "location" : "eastus",
+            "properties" : {
+            "displayName" : "DisplayName",
+            "computeCount" : 2,
+            "dataStorageSizeInTbs" : 1,
+            "adminPassword" : "Dbatazurepassword098",
+            "dbVersion" : "23ai",
+            "licenseModel" : "LicenseIncluded",
+            "dataBaseType" : "Regular",
+            "computeModel" : "ECPU",
+            "dbWorkload" : "DW",
+            "permissionLevel" : "Restricted",
+        
+            "characterSet" : "AL32UTF8",
+            "ncharacterSet" : "AL16UTF16",
+        
+            "isAutoScalingEnabled" : false,
+            "isAutoScalingForStorageEnabled" : false,
+
+            "isMtlsConnectionRequired": true,
+
+            }
+        }
+        response_export_values = ["id", "properties.ocid", "properties"]
+    }
+    ```
+
