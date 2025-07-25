@@ -68,9 +68,14 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     }
     ```
     Before we continue, let's discuss what these fields mean.
+
     `location` - Region the Autonomous Database will be deployed in.
+
     `name` - Name of the resource.
-    `adminPassword` - This is the password of the ADMIN user which is provisioned by default.There are restrictions on what this password can contain.
+
+    `adminPassword` - This is the password of the ADMIN user which is provisioned by default.
+
+    There are restrictions on what this password can contain.
     
     * The password must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character.
 
@@ -98,7 +103,11 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
     `dbVersion` - The version of database to use, supported values are `19c` and `23ai`.
 
-    `dbWorkload` - The type of workload this database is designed for. Supported values are `AJD` - Autonomous JSON Database, `APEX` - APEX database, `DW` - Data Warehouse, `OLTP` - Online Transaction Processing.
+    `dbWorkload` - The type of workload this database is designed for. Supported values are         
+        `AJD` - Autonomous JSON Database
+        `APEX` - APEX database 
+        `DW` - Data Warehouse
+        `OLTP` - Online Transaction Processing.
 
     `isAutoScalingEnabled` - Determines if the CPU count will auto scale, up to a maximum of 3x the current CPU count.
 
@@ -122,7 +131,10 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
     `openMode` - This determines what read/write access users should have. Options include `ReadOnly` and `ReadWrite`.
 
-    `permissionLevel` - Determines who sould have access to the database. Valid options are `Restricted` for `ADMIN` only access. `Unrestricted` otherwise.
+    `permissionLevel` - Determines who sould have access to the database. Valid options are 
+    
+    `Restricted` for `ADMIN` only access.
+    `Unrestricted` otherwise.
 
     `scheduledOperations` - Determines when maintenance operations should be scheduled.
         `dayOfWeek` - The day when maintenance should occur.
