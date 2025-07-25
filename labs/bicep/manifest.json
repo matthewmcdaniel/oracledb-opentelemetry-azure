@@ -1,0 +1,11 @@
+{
+    "workshoptitle": "Use Azure Bicep and Azure Resource Manager to create Oracle Autonomous Database@Azure.",
+    "help": "",
+	"tutorials": [
+        {
+            "title": "Use Azure Bicep and Azure Resource Manager to create Oracle Autonomous Database@Azure.",
+            "description":"Use Azure Bicep and Azure Resource Manager to create Oracle Autonomous Database@Azure.",
+            "filename":"https://matthewmcdaniel.github.io/oracledb-opentelemetry-azure/labs/bicep/bicep.md"
+        }
+    ]
+}
