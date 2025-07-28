@@ -18,11 +18,14 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
 2. In the terminal, create a file called main.bicep
     ```
+    <code>
     code main.bicep
+    </copy>
     ```
 3. In this file, paste the following content.
 
     ```
+    <copy>
     resource autonomousDatabases_db_name_resource 'Oracle.Database/autonomousDatabases@2025-03-01' = {
     location: '<location>'
     name: 'testbicepdeployment'
@@ -65,6 +68,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
         // For remaining properties, see AutonomousDatabaseBaseProperties objects
         }
     }
+    </copy>
     ```
     Before we continue, let's discuss what these fields mean.
 
@@ -140,7 +144,74 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
 4. Execute deployment command
     ```
+    <copy>
     az deployment group create --name mm-adb-deployment --resource-group code-innovate --template-file main.bicep
+    </copy>
+    ```
+
+    ```
+        The configuration value of bicep.use_binary_from_path has been set to 'false'.
+    /home/matthew/main.bicep(4,9) : Warning decompiler-cleanup: The symbolic name of resource 'autonomousDatabases_adbsatazure_name_resource' appears to have originated from a naming conflict during a decompilation from JSON. Consider renaming it and removing the suffix (using the editor's rename functionality). [https://aka.ms/bicep/linter-diagnostics#decompiler-cleanup]
+    /home/matthew/main.bicep(6,20) : Warning use-secure-value-for-secure-inputs: Property 'adminPassword' expects a secure value, but the value provided may not be secure. [https://aka.ms/bicep/linter-diagnostics#use-secure-value-for-secure-inputs]
+
+    {
+    "id": "<subscription_id>",
+    "location": null,
+    "name": "mm-adb-deployment",
+    "properties": {
+        "correlationId": "1933f202-7724-49ff-b868-e95bfacfef0b",
+        "debugSetting": null,
+        "dependencies": [],
+        "diagnostics": null,
+        "duration": "PT3M58.6798133S",
+        "error": null,
+        "mode": "Incremental",
+        "onErrorDeployment": null,
+        "outputResources": [
+        {
+            "id": "/subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Oracle.Database/autonomousDatabases/<db_name>",
+            "resourceGroup": "<resource_group>"
+        }
+        ],
+        "outputs": null,
+        "parameters": null,
+        "parametersLink": null,
+        "providers": [
+        {
+            "id": null,
+            "namespace": "Oracle.Database",
+            "providerAuthorizationConsentState": null,
+            "registrationPolicy": null,
+            "registrationState": null,
+            "resourceTypes": [
+            {
+                "aliases": null,
+                "apiProfiles": null,
+                "apiVersions": null,
+                "capabilities": null,
+                "defaultApiVersion": null,
+                "locationMappings": null,
+                "locations": [
+                "eastus"
+                ],
+                "properties": null,
+                "resourceType": "autonomousDatabases",
+                "zoneMappings": null
+            }
+            ]
+        }
+        ],
+        "provisioningState": "Succeeded",
+        "templateHash": "532802357778311532",
+        "templateLink": null,
+        "timestamp": "2025-07-28T21:07:55.798581+00:00",
+        "validatedResources": null,
+        "validationLevel": null
+    },
+    "resourceGroup": "<resource_group>",
+    "tags": null,
+    "type": "Microsoft.Resources/deployments"
+    }
     ```
 5. Wait for resources to build.
 
@@ -166,18 +237,37 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 2. Create resource group
 
     ```
+    <copy>
     az group create --location eastus --name <example_resource_group>
+    </copy>
+    ```
+
+    ```
+    {
+        "id": "/subscriptions/<subscription_id>/resourceGroups/<resource_group>",
+        "location": "eastus",
+        "managedBy": null,
+        "name": "code-innovate-iac",
+        "properties": {
+            "provisioningState": "Succeeded"
+        },
+        "tags": null,
+        "type": "Microsoft.Resources/resourceGroups"
+    }
     ```
 
 3. Create ARM deploy file
 
     ```
+    <copy>
     code azuredeploy.json
+    </copy>
     ```
 
-4. Paste the following
+4. Paste the following and change the email field under `customerContacts`
 
     ```
+    <copy>
             {
         "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
         "contentVersion": "1.0.0.0",
@@ -228,14 +318,77 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
             }
         ]
         }
+        </copy>
     ```
-
     **NOTE**: the configuration above is identical to the Bipec example from earlier. 
 
 5. Create ARM template
 
     ```
-    az deployment group create --name adb-arm-template --resource-group code-innovate-iac --template-file ./azuredeploy.json
+    <copy>
+    az deployment group create --name adb-arm-template --resource-group <resource_group> --template-file ./azuredeploy.json
+    </copy>
+    ```
+
+    ```
+    {
+        "id": "/subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Microsoft.Resources/deployments/adb-arm-template",
+        "location": null,
+        "name": "adb-arm-template",
+        "properties": {
+            "correlationId": "2667fd8f-0626-423f-bcea-f5e1cdfc67f6",
+            "debugSetting": null,
+            "dependencies": [],
+            "diagnostics": null,
+            "duration": "PT3M41.0271783S",
+            "error": null,
+            "mode": "Incremental",
+            "onErrorDeployment": null,
+            "outputResources": [
+            {
+                "id": "/subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Oracle.Database/autonomousDatabases/<db_name>",
+                "resourceGroup": "<resource_group>"
+            }
+            ],
+            "outputs": null,
+            "parameters": null,
+            "parametersLink": null,
+            "providers": [
+            {
+                "id": null,
+                "namespace": "Oracle.Database",
+                "providerAuthorizationConsentState": null,
+                "registrationPolicy": null,
+                "registrationState": null,
+                "resourceTypes": [
+                {
+                    "aliases": null,
+                    "apiProfiles": null,
+                    "apiVersions": null,
+                    "capabilities": null,
+                    "defaultApiVersion": null,
+                    "locationMappings": null,
+                    "locations": [
+                    "eastus"
+                    ],
+                    "properties": null,
+                    "resourceType": "autonomousDatabases",
+                    "zoneMappings": null
+                }
+                ]
+            }
+            ],
+            "provisioningState": "Succeeded",
+            "templateHash": "456352182606238030",
+            "templateLink": null,
+            "timestamp": "2025-07-28T21:27:42.964708+00:00",
+            "validatedResources": null,
+            "validationLevel": null
+        },
+        "resourceGroup": "<resource_group>",
+        "tags": null,
+        "type": "Microsoft.Resources/deployments"
+    }
     ```
 
 6. Validate that the deployment has been created. Go to Resource Groups > Settings > Deployments
@@ -251,6 +404,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 3. Create Terraform provider within `main.tf`
 
     ```
+    <copy>
     terraform {
         required_providers {
             azapi = {
@@ -261,28 +415,34 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
             }
         }
     }
+    </copy>
     ```
 
 4. Create `azurerm` provider
 
     ```
+    <copy>
     provider "azurerm" {
         resource_provider_registrations = "none"
         subscription_id = "<subscription_ID"
         features {}
     }
+    </copy>
     ```
 
 5. Create resource group data source
 
     ```
+    <copy>
     data "azurerm_resource_group" "resource_group" {
         name = "<resource_group>"
     }
+    </copy>
     ```
 6. Create Autonomous Database resource
 
     ```
+    <copy>
     resource "azapi_resource" "autonomous_db" {
         type                      = "Oracle.Database/autonomousDatabases@2023-09-01"
         parent_id                 = data.azurerm_resource_group.resource_group.id
@@ -315,5 +475,118 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
         }
         response_export_values = ["id", "properties.ocid", "properties"]
     }
+    </copy>
+    ```
+7. Run Terraform init
+
+    ```
+    <copy>terraform init</copy>
+    Initializing the backend...
+    Initializing provider plugins...
+    - Finding latest version of azure/azapi...
+    - Finding latest version of hashicorp/azurerm...
+    - Installing azure/azapi v2.5.0...
+    - Installed azure/azapi v2.5.0 (signed by a HashiCorp partner, key ID 6F0B91BDE98478CF)
+    - Installing hashicorp/azurerm v4.37.0...
+    - Installed hashicorp/azurerm v4.37.0 (signed by HashiCorp)
+    Partner and community providers are signed by their developers.
+    If you'd like to know more about provider signing, you can read about it here:
+    https://developer.hashicorp.com/terraform/cli/plugins/signing
+    Terraform has created a lock file .terraform.lock.hcl to record the provider
+    selections it made above. Include this file in your version control repository
+    so that Terraform can guarantee to make the same selections by default when
+    you run "terraform init" in the future.
+
+    Terraform has been successfully initialized!
+
+    You may now begin working with Terraform. Try running "terraform plan" to see
+    any changes that are required for your infrastructure. All Terraform commands
+    should now work.
+
+    If you ever set or change modules or backend configuration for Terraform,
+    rerun this command to reinitialize your working directory. If you forget, other
+    commands will detect it and remind you to do so if necessary.
+    ```
+
+7. Run terraform apply, type `yes` when prompted
+
+    ```
+    terraform apply
+    ```
+
+    ```
+    Terraform will perform the following actions:
+
+    # azapi_resource.autonomous_db will be created
+    + resource "azapi_resource" "autonomous_db" {
+        + body                      = {
+            + location   = "eastus"
+            + properties = {
+                + adminPassword                  = "Dbatazurepassword098"
+                + characterSet                   = "AL32UTF8"
+                + computeCount                   = 2
+                + computeModel                   = "ECPU"
+                + dataBaseType                   = "Regular"
+                + dataStorageSizeInTbs           = 1
+                + dbVersion                      = "23ai"
+                + dbWorkload                     = "DW"
+                + displayName                    = "DisplayName"
+                + isAutoScalingEnabled           = false
+                + isAutoScalingForStorageEnabled = false
+                + isMtlsConnectionRequired       = true
+                + licenseModel                   = "LicenseIncluded"
+                + ncharacterSet                  = "AL16UTF16"
+                + permissionLevel                = "Restricted"
+                }
+            }
+        + id                        = (known after apply)
+        + ignore_casing             = false
+        + ignore_missing_property   = true
+        + ignore_null_property      = false
+        + location                  = "eastus"
+        + name                      = "<db_name>"
+        + output                    = (known after apply)
+        + parent_id                 = "/subscriptions/<subscription_id>/resourceGroups/<resource_group>"
+        + response_export_values    = [
+            + "id",
+            + "properties.ocid",
+            + "properties",
+            ]
+        + schema_validation_enabled = false
+        + sensitive_body            = (write-only attribute)
+        + type                      = "Oracle.Database/autonomousDatabases@2023-09-01"
+        }
+
+    Plan: 1 to add, 0 to change, 0 to destroy.
+
+    Do you want to perform these actions?
+    Terraform will perform the actions described above.
+    Only 'yes' will be accepted to approve.
+
+    Enter a value: yes
+
+    azapi_resource.autonomous_db: Creating...
+    azapi_resource.autonomous_db: Still creating... [00m10s elapsed]
+    azapi_resource.autonomous_db: Still creating... [00m20s elapsed]
+    azapi_resource.autonomous_db: Still creating... [00m30s elapsed]
+    azapi_resource.autonomous_db: Still creating... [00m40s elapsed]
+    azapi_resource.autonomous_db: Still creating... [00m50s elapsed]
+    azapi_resource.autonomous_db: Still creating... [01m00s elapsed]
+    azapi_resource.autonomous_db: Still creating... [01m10s elapsed]
+    azapi_resource.autonomous_db: Still creating... [01m20s elapsed]
+    azapi_resource.autonomous_db: Still creating... [01m30s elapsed]
+    azapi_resource.autonomous_db: Still creating... [01m40s elapsed]
+    azapi_resource.autonomous_db: Still creating... [01m50s elapsed]
+    azapi_resource.autonomous_db: Still creating... [02m00s elapsed]
+    azapi_resource.autonomous_db: Still creating... [02m10s elapsed]
+    azapi_resource.autonomous_db: Still creating... [02m20s elapsed]
+    azapi_resource.autonomous_db: Still creating... [02m30s elapsed]
+    azapi_resource.autonomous_db: Still creating... [02m40s elapsed]
+    azapi_resource.autonomous_db: Still creating... [02m50s elapsed]
+    azapi_resource.autonomous_db: Still creating... [03m00s elapsed]
+    azapi_resource.autonomous_db: Still creating... [03m10s elapsed]
+    azapi_resource.autonomous_db: Creation complete after 3m12s [id=/subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Oracle.Database/autonomousDatabases/<db_name>]
+
+    Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
     ```
 
