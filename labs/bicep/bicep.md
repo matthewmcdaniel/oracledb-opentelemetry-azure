@@ -18,7 +18,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
 2. In the terminal, create a file called main.bicep
     ```
-    <code>
+    <copy>
     code main.bicep
     </copy>
     ```
