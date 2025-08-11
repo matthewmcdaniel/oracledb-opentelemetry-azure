@@ -34,7 +34,6 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
 ## (Optional) Task 1b: Access Azure Cloud Shell
 
-## Task 1: Write Bicep code
 1. Open a terminal with Azure CLI installed, In this example I will use Azure's Cloud Shell
     ![Azure Cloud Shell](./images/cloudshell.png)
 
@@ -42,7 +41,9 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
     ![Azure Cloud Shell](images/azurecloudshellscreen.png)
 
-2. In the terminal, create a file called main.bicep
+## Task 1: Write Bicep code
+
+1. In the terminal, create a file called main.bicep
     ```
     <copy>
     code main.bicep
@@ -60,7 +61,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     </copy>
     ```
 
-3. In this file, paste the following content. Note that you will need to change **location**, **adminPassword**, and **email**. Remove the **<** and **>** signs when replacing the values.
+2. In this file, paste the following content. Note that you will need to change **location**, **adminPassword**, and **email**. Remove the **<** and **>** signs when replacing the values.
 
     ```
     <copy>
@@ -180,9 +181,9 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     `scheduledOperations` - Determines when maintenance operations should be scheduled.
         `dayOfWeek` - The day when maintenance should occur.
 
-4. Press Ctrl + S to save your changes.
+3. Press Ctrl + S to save your changes.
 
-5. Execute deployment command
+4. Execute deployment command
     ```
     <copy>
     az deployment group create --name mm-adb-deployment --resource-group code-innovate --template-file main.bicep
@@ -255,7 +256,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     "type": "Microsoft.Resources/deployments"
     }
     ```
-6. Wait for resources to build.
+5. Wait for resources to build.
 
 ## Task 2: Validate deployment creation
 1. Go into Azure Resource Manager
