@@ -12,9 +12,35 @@ Azure Resource Manager - https://learn.microsoft.com/en-us/azure/azure-resource-
 Oracle Database@Azure - https://www.oracle.com/cloud/azure/oracle-database-at-azure/
 Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/en-us/azure/templates/oracle.database/autonomousdatabases?pivots=deployment-language-bicep
 
+## Task 1a: Access Azure CLI on local machine
+
+1. This workshop can be run on either your own machine or using the Azure Cloud Shell. If you would like to use cloud shell, proceed to *(Optional) Task 1b: Access Azure Cloud Shell*
+
+2. Click the start menu on your device, type **powershell** and click on the powershell app.
+
+    ![Powershell](images/powershell.png)
+    
+3. Once powershell is open, click on the arrow next to the current terminal session.
+
+    ![Azure CLI](images/azurecli.png)
+
+4. Select Azure Cloud Shell.
+
+    ![Azure CLI in dropdown](images/azurecloudshell.png)
+
+5. Follow the authentication flow.
+
+    ![Azure Authentication Flow](images/azureauthenticationflow.png)
+
+## (Optional) Task 1b: Access Azure Cloud Shell
+
 ## Task 1: Write Bicep code
 1. Open a terminal with Azure CLI installed, In this example I will use Azure's Cloud Shell
     ![Azure Cloud Shell](./images/cloudshell.png)
+
+    The shell will open at the bottom of the screen.
+
+    ![Azure Cloud Shell](images/azurecloudshellscreen.png)
 
 2. In the terminal, create a file called main.bicep
     ```
@@ -22,7 +48,19 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     code main.bicep
     </copy>
     ```
-3. In this file, paste the following content.
+
+    If prompted to open Classic Cloud Shell, click **confirm**.
+
+    ![Classic Cloud Shell](images/classiccloudshell.png)
+
+    Create **main.bicep**
+    ```
+    <copy>
+    code main.bicep
+    </copy>
+    ```
+
+3. In this file, paste the following content. Note that you will need to change **location**, **adminPassword**, and **email**. Remove the **<** and **>** signs when replacing the values.
 
     ```
     <copy>
@@ -134,7 +172,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
     `openMode` - This determines what read/write access users should have. Options include `ReadOnly` and `ReadWrite`.
 
-    `permissionLevel` - Determines who sould have access to the database. Valid options are 
+    `permissionLevel` - Determines who should have access to the database. Valid options are 
     
     `Restricted` for `ADMIN` only access.
     `Unrestricted` otherwise.
@@ -142,12 +180,16 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     `scheduledOperations` - Determines when maintenance operations should be scheduled.
         `dayOfWeek` - The day when maintenance should occur.
 
-4. Execute deployment command
+4. Press Ctrl + S to save your changes.
+
+5. Execute deployment command
     ```
     <copy>
     az deployment group create --name mm-adb-deployment --resource-group code-innovate --template-file main.bicep
     </copy>
     ```
+
+    **NOTE:** Replace the resource-group argument with your own resource group name.
 
     ```
         The configuration value of bicep.use_binary_from_path has been set to 'false'.
@@ -213,7 +255,7 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     "type": "Microsoft.Resources/deployments"
     }
     ```
-5. Wait for resources to build.
+6. Wait for resources to build.
 
 ## Task 2: Validate deployment creation
 1. Go into Azure Resource Manager
@@ -264,6 +306,18 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
     </copy>
     ```
 
+    If prompted to open Classic Cloud Shell, click **confirm**.
+
+    ![Classic Cloud Shell](images/classiccloudshell.png)
+
+    Create the ARM deploy file
+
+    ```
+    <copy>
+    code azuredeploy.json
+    </copy>
+    ```
+
 4. Paste the following and change the email field under `customerContacts`
 
     ```
@@ -275,10 +329,10 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
             {
                 "type": "Oracle.Database/autonomousDatabases",
                 "apiVersion": "2025-03-01",
-                "name": "testbicepdeployment",
+                "name": "testdeployment",
                 "location": "eastus",
                 "properties": {
-                    "adminPassword": "dbatazurepassword098",
+                    "adminPassword": "Dbatazurepassword098",
                     "backupRetentionPeriodInDays": 60,
                     "characterSet": "AL32UTF8",
                     "computeCount": 2,
@@ -394,6 +448,11 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 6. Validate that the deployment has been created. Go to Resource Groups > Settings > Deployments
 
     ![Successful ARM template](./images/armtemplate.png)
+
+7. Click on the deployment to validate the database has been created.
+
+    ![Successful ARM deployment](images/successfularmdeployment.png)
+
 
 ## Task 3: Using Terraform to provision Autonomous Database@Azure
 
@@ -589,4 +648,9 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
     Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
     ```
+9. Validate the Autonomous Database has been created. Go to the Oracle Database@Azure service and find your database.
+
+    ![Search or Oracle Database@Azure service](images/searchfororacledbatazure.png)
+
+    ![Find the created Oracel Database@Azure](image.png)
 
