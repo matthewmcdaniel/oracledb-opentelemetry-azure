@@ -652,5 +652,5 @@ Oracle Autonomous Database@Azure Bicep reference - https://learn.microsoft.com/e
 
     ![Search or Oracle Database@Azure service](images/searchfororacledbatazure.png)
 
-    ![Find the created Oracel Database@Azure](image.png)
+    ![Find the created Oracle Database@Azure](images/findyouradb.png)
 
